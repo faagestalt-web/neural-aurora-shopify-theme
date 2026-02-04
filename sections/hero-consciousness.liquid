@@ -1,0 +1,51 @@
+<div class="relative min-h-[80vh] flex flex-col items-center justify-center text-center overflow-hidden" x-data="{ 
+    text: '', 
+    fullText: 'Technology that serves consciousness, not the reverse...',
+    index: 0,
+    type() {
+      if (this.index < this.fullText.length) {
+        this.text += this.fullText.charAt(this.index);
+        this.index++;
+        setTimeout(() => this.type(), 50);
+      }
+    }
+}" x-init="type()">
+
+  <!-- Background Elements -->
+  <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-teal-500/20 blur-[100px] rounded-full"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-4xl mx-auto px-4">
+    <div class="mb-6 flex justify-center">
+      <div class="w-16 h-16 bg-white/5 rounded-full flex items-center justify-center border border-white/10 backdrop-blur-md">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#32b8c6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+      </div>
+    </div>
+
+    <h1 class="text-6xl md:text-8xl font-bold mb-8 tracking-tight">
+      <span class="text-gradient">GestaltView</span>
+    </h1>
+
+    <div class="h-16 text-2xl md:text-3xl font-mono text-gray-300">
+      <span x-text="text"></span><span class="animate-pulse">|</span>
+    </div>
+
+    <div class="mt-12 flex gap-4 justify-center">
+      <a href="/collections/all" class="px-8 py-4 bg-teal-600 hover:bg-teal-500 text-white rounded-lg font-medium transition-all shadow-[0_0_20px_rgba(33,128,141,0.5)]">
+        Enter the Museum
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Consciousness Hero",
+  "presets": [
+    {
+      "name": "Default"
+    }
+  ]
+}
+{% endschema %}
