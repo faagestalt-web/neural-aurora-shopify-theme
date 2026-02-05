@@ -13,13 +13,13 @@
       "type": "hero-consciousness",
       "settings": {}
     },
-    "grid": {
+    "exhibits_grid_JG3UVm": {
       "type": "exhibits-grid",
       "settings": {}
     }
   },
   "order": [
     "hero",
-    "grid"
+    "exhibits_grid_JG3UVm"
   ]
 }
