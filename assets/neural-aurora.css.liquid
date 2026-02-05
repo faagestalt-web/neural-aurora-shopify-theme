@@ -1,56 +1,126 @@
-/* Neural Aurora Theme - Liquid Port */
+/* Neural Aurora Theme - Liquid Port (Updated) */
 :root {
-  /* Primitive Color Tokens */
-  --gv-charcoal: {{ settings.bg_color }};
-  --gv-teal-300: #32b8c6;
-  --gv-teal-500: {{ settings.accent_primary }};
-  --gv-cream: {{ settings.text_main }};
+  /* Primitive Color Tokens - with safe defaults if settings are missing */
+  --gv-charcoal: {{ settings.bg_color | default: '#0f172a' }};
+  --gv-cream: {{ settings.text_main | default: '#f8fafc' }};
+  --gv-teal-500: {{ settings.accent_primary | default: '#14b8a6' }};
   
+  /* Gradient Stops */
+  --gv-grad-start: {{ settings.gradient_start | default: '#10b981' }};
+  --gv-grad-mid: {{ settings.gradient_middle | default: '#14b8a6' }};
+  --gv-grad-end: {{ settings.gradient_end | default: '#d946ef' }};
+
   /* Glass Effects */
-  --gv-glass-light: rgba(245, 245, 245, 0.07);
-  --gv-glass-medium: rgba(245, 245, 245, 0.10);
-  --gv-glass-strong: rgba(245, 245, 245, 0.15);
+  --gv-glass-light: rgba(255, 255, 255, 0.03);
+  --gv-glass-medium: rgba(255, 255, 255, 0.08);
+  --gv-glass-strong: rgba(255, 255, 255, 0.12);
+  --gv-border-subtle: rgba(255, 255, 255, 0.08);
   
   /* Fonts */
-  --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+  --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }}, sans-serif;
   --font-mono: "Berkeley Mono", {{ settings.font_body.family }}, monospace;
 }
 
 body {
   background-color: var(--gv-charcoal);
+  background-image: 
+    radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08), transparent 25%),
+    radial-gradient(circle at 50% 50%, rgba(20, 184, 166, 0.08), transparent 50%),
+    radial-gradient(circle at 85% 50%, rgba(217, 70, 239, 0.08), transparent 25%);
+  background-attachment: fixed;
   color: var(--gv-cream);
   font-family: var(--font-heading);
-  line-height: 1.5;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  margin: 0;
+  min-height: 100vh;
 }
 
-/* Utility Class: The Neural Gradient Text */
+/* Base Layout Helpers (Replacing Tailwind) */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.text-center { text-align: center; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.relative { position: relative; }
+.absolute { position: absolute; }
+.inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+.z-10 { z-index: 10; }
+
+/* The Neural Gradient Text */
 .text-gradient {
-  background: linear-gradient(to right, var(--gv-teal-300), #a78bfa, var(--gv-teal-300));
+  background: linear-gradient(to right, var(--gv-grad-start), var(--gv-grad-mid), var(--gv-grad-end));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  background-size: 200% auto;
-  animation: shine 4s linear infinite;
+  font-weight: 700;
 }
 
-/* Component: Glass Card (Exhibit Style) */
+/* Glass Card */
 .exhibit-card {
   background: var(--gv-glass-light);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
+  border: 1px solid var(--gv-border-subtle);
+  border-radius: 16px;
   padding: 2rem;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  backdrop-filter: blur(12px);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  backdrop-filter: blur(10px);
 }
 
 .exhibit-card:hover {
-  background: var(--gv-glass-medium);
   transform: translateY(-4px);
-  box-shadow: 0 10px 30px -10px rgba(50, 184, 198, 0.3);
-  border-color: var(--gv-teal-500);
+  border-color: rgba(20, 184, 166, 0.3);
+  background: var(--gv-glass-medium);
 }
 
-@keyframes shine {
-  to { background-position: 200% center; }
+/* Button Styles */
+.btn-primary {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--gv-grad-mid), var(--gv-grad-end));
+  color: white;
+  padding: 1rem 2.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0 4px 15px rgba(20, 184, 166, 0.3);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* Typography Scale */
+h1, h2, h3, h4 { margin-top: 0; line-height: 1.2; }
+.h1 { font-size: 3.5rem; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+.h2 { font-size: 2.25rem; margin-bottom: 1rem; }
+.text-lg { font-size: 1.25rem; opacity: 0.9; }
+.font-mono { font-family: var(--font-mono); }
+
+/* Animation */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.25; transform: scale(1.05); }
+}
+
+.glow-orb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, var(--gv-grad-mid) 0%, transparent 70%);
+  opacity: 0.15;
+  filter: blur(80px);
+  border-radius: 50%;
+  animation: pulse-glow 8s infinite ease-in-out;
+  pointer-events: none;
 }
