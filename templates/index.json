@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero-consciousness"
+    },
+    "grid": {
+      "type": "exhibits-grid"
+    }
+  },
+  "order": [
+    "hero",
+    "grid"
+  ]
+}
